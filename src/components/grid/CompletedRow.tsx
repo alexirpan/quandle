@@ -3,11 +3,13 @@ import { Cell } from './Cell'
 
 type Props = {
   guess: string
+  realities: string[]
 }
 
-export const CompletedRow = ({ guess }: Props) => {
+export const CompletedRow = ({ guess, realities }: Props) => {
   // TODO known char
-  const superpos = getGuessStatusSuperpos(guess, []);
+  const superpos = getGuessStatusSuperpos(guess, realities);
+  console.log(guess);
   console.log(superpos);
 
   // TODO use status

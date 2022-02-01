@@ -7,7 +7,7 @@ import { Keyboard } from './components/keyboard/Keyboard'
 import { AboutModal } from './components/modals/AboutModal'
 import { InfoModal } from './components/modals/InfoModal'
 import { WIN_MESSAGES } from './constants/strings'
-import { isWordInWordList, isWinningWord } from './lib/words'
+import { isWordInWordList, isWinningWord, solutions } from './lib/words'
 import { addStatsForCompletedGame, loadStats } from './lib/stats'
 
 const ALERT_TIME_MS = 2000
@@ -23,6 +23,7 @@ function App() {
   const [isGameLost, setIsGameLost] = useState(false)
   const [successAlert, setSuccessAlert] = useState('')
   const [guesses, setGuesses] = useState<string[]>([])
+  const [realities, setRealities] = useState<string[]>(solutions)
 
   const [stats, setStats] = useState(() => loadStats())
 
@@ -102,7 +103,11 @@ function App() {
           onClick={() => setIsStatsModalOpen(true)}
         />
       </div>
-      <Grid guesses={guesses} currentGuess={currentGuess} />
+      <Grid
+        guesses={guesses}
+        currentGuess={currentGuess}
+        realities={realities}
+      />
       <Keyboard
         onChar={onChar}
         onDelete={onDelete}

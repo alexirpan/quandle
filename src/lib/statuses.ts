@@ -10,12 +10,6 @@ export type Superposition = {
     total: number;
 };
 
-export type KnownChar = {
-    char: string;
-    index: number;
-    status: CharStatus;
-};
-
 
 export type CharValue =
   | 'Q'
@@ -54,28 +48,26 @@ export const getStatuses = (
   return charObj;
 };
 
-const consistent = (sol: string, known: KnownChar[]): boolean => {
-    return known.every(({ char, index, status }, i) => {
-        if (status === 'correct' && sol[index] !== char) {
-            return false;
-        } else if (status === 'present' && (!sol.includes(char) || sol[index] === char)) {
-            return false;
-        } else if (status === 'absent' && sol.includes(char)) {
-            return false;
-        } else {
-            return true;
-        }
-    });
+const consistent = (sol: string, guess: string, observeIndex: number, observeStatus: CharStatus): boolean => {
+    // easiest to reuse algorithm code because of edge cases around
+    // letter appearing multiple times.
+    const statuses = getGuessStatuses(guess, sol);
+    return statuses[observeIndex] === observeStatus;
 };
 
-export const possibleSolutions = (known: KnownChar[]): string[] => {
-    return solutions.filter(sol => consistent(sol, known));
+export const possibleRealities = (realities: string[], guess: string, observeIndex: number, observeStatus: CharStatus): string[] => {
+    return realities.filter(sol => consistent(sol, guess, observeIndex, observeStatus));
 };
 
 export const getGuessStatuses = (guess: string, solution: string): CharStatus[] => {
   // statuses for single solution word.
   // This doesn't need to account for known chars because that is already handled
   // by possibleSolutions filter.
+  // How do we handle case where the guess has the letter multiple times?
+  // In regular Wordle, one char gets green/yellow and the other gets gray, and
+  // letters are taken green then yellow then gray, with tiebreak by position in word.
+  // This...is kinda weird in the quantum case but let's go with that because it's less
+  // work and decide whether it should change later.
   const splitSolution = solution.split('')
   const splitGuess = guess.split('')
 
@@ -120,10 +112,7 @@ export const getGuessStatuses = (guess: string, solution: string): CharStatus[] 
 }
 
 
-export const getGuessStatusSuperpos = (guess: string, known: KnownChar[]): Superposition[] => {
-  // return the green / yellow / gray status for each letter in the guess.
-  // do this based on all possible solutions.
-  const possible = possibleSolutions(known);
+export const getGuessStatusSuperpos = (guess: string, realities: string[]): Superposition[] => {
   // only return clear status if it is true in all possibilities.
   const splitGuess = guess.split('')
 
@@ -131,8 +120,8 @@ export const getGuessStatusSuperpos = (guess: string, known: KnownChar[]): Super
   for (let i = 0; i < guess.length; i++) {
     superpos[i] = { absent: 0, present: 0, correct: 0, total: 0 };
   }
-  for (let i = 0; i < possible.length; i++) {
-    const statuses = getGuessStatuses(guess, possible[i]);
+  for (let i = 0; i < realities.length; i++) {
+    const statuses = getGuessStatuses(guess, realities[i]);
     for (let j = 0; j < statuses.length; j++) {
         superpos[j].total++;
         if (statuses[j] === 'absent') {
@@ -145,4 +134,8 @@ export const getGuessStatusSuperpos = (guess: string, known: KnownChar[]): Super
     }
   }
   return superpos;
+}
+
+export const observeSquare(guess: string, realities, setRealities, observeIndex: number, observeStatus: CharStatus) => {
+    setRealities(possibleRealities(realities, guess, observeIndex, observeStatus));
 }
