@@ -136,6 +136,8 @@ export const getGuessStatusSuperpos = (guess: string, realities: string[]): Supe
   return superpos;
 }
 
-export const observeSquare(guess: string, realities, setRealities, observeIndex: number, observeStatus: CharStatus) => {
+export const observeSquare = (guess: string, realities: string[],
+                              setRealities: (value: string[]) => void,
+                              observeIndex: number, observeStatus: CharStatus) => {
     setRealities(possibleRealities(realities, guess, observeIndex, observeStatus));
 }
