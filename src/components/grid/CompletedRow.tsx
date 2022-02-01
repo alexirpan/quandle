@@ -1,4 +1,4 @@
-import { getGuessStatuses } from '../../lib/statuses'
+import { getGuessStatusSuperpos } from '../../lib/statuses'
 import { Cell } from './Cell'
 
 type Props = {
@@ -6,12 +6,15 @@ type Props = {
 }
 
 export const CompletedRow = ({ guess }: Props) => {
-  const statuses = getGuessStatuses(guess)
+  // TODO known char
+  const superpos = getGuessStatusSuperpos(guess, []);
+  console.log(superpos);
 
+  // TODO use status
   return (
     <div className="flex justify-center mb-1">
       {guess.split('').map((letter, i) => (
-        <Cell key={i} value={letter} status={statuses[i]} />
+        <Cell key={i} value={letter} status={"absent"} />
       ))}
     </div>
   )

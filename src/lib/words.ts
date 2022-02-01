@@ -9,7 +9,8 @@ export const isWordInWordList = (word: string) => {
 }
 
 export const isWinningWord = (word: string) => {
-  return solution === word
+  // TODO fix this
+  return false;
 }
 
 export const getWordOfDay = () => {

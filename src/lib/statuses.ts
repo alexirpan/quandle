@@ -7,6 +7,7 @@ export type Superposition = {
     absent: number;
     present: number;
     correct: number;
+    total: number;
 };
 
 export type KnownChar = {
@@ -53,13 +54,13 @@ export const getStatuses = (
   return charObj;
 };
 
-const consistent = (sol: string, known: KnownChar[]): bool -> {
+const consistent = (sol: string, known: KnownChar[]): boolean => {
     return known.every(({ char, index, status }, i) => {
-        if (status == 'correct' && sol[index] != char) {
+        if (status === 'correct' && sol[index] !== char) {
             return false;
-        } else if (status == 'present' && (!sol.includes(char) || sol[index] == char)) {
+        } else if (status === 'present' && (!sol.includes(char) || sol[index] === char)) {
             return false;
-        } else if (status == 'absent' && sol.includes(char)) {
+        } else if (status === 'absent' && sol.includes(char)) {
             return false;
         } else {
             return true;
@@ -71,27 +72,16 @@ export const possibleSolutions = (known: KnownChar[]): string[] => {
     return solutions.filter(sol => consistent(sol, known));
 };
 
-export const getGuessStatuses = (guess: string, known: KnownChar[]): CharStatus[] => {
-  // return the green / yellow / gray status for each letter in the guess.
-  // do this based on all possible solutions.
-  const possible = possibleSolutions(known);
-  // only return clear status if it is true in all possibilities.
+export const getGuessStatuses = (guess: string, solution: string): CharStatus[] => {
+  // statuses for single solution word.
+  // This doesn't need to account for known chars because that is already handled
+  // by possibleSolutions filter.
+  const splitSolution = solution.split('')
   const splitGuess = guess.split('')
 
-  const statuses: CharStatus[] = Array.from(Array(guess.length))
+  const solutionCharsTaken = splitSolution.map((_) => false)
 
-  for (var i = 0; i < splitGuess.length; i++) {
-    if (possible.every(sol => sol[i] == splitGuess[i])) {
-        statuses[i] = 'correct';
-    } else if (possible.every(sol => sol[i].includes(splitGuess[i]) && sol[i] != splitGuess[i])) {
-        statuses[i] = 'present';
-    } else if (possible.every(sol => !sol[i].includes(splitGuess[i]))) {
-        statuses[i] = 'absent';
-    } else {
-        // TODO report the probability distribution.
-        statuses[i] = 'unknown';
-    }
-  }
+  const statuses: CharStatus[] = Array.from(Array(guess.length))
 
   // handle all correct cases first
   splitGuess.forEach((letter, i) => {
@@ -127,4 +117,32 @@ export const getGuessStatuses = (guess: string, known: KnownChar[]): CharStatus[
   })
 
   return statuses
+}
+
+
+export const getGuessStatusSuperpos = (guess: string, known: KnownChar[]): Superposition[] => {
+  // return the green / yellow / gray status for each letter in the guess.
+  // do this based on all possible solutions.
+  const possible = possibleSolutions(known);
+  // only return clear status if it is true in all possibilities.
+  const splitGuess = guess.split('')
+
+  const superpos: Superposition[] = [];
+  for (let i = 0; i < guess.length; i++) {
+    superpos[i] = { absent: 0, present: 0, correct: 0, total: 0 };
+  }
+  for (let i = 0; i < possible.length; i++) {
+    const statuses = getGuessStatuses(guess, possible[i]);
+    for (let j = 0; j < statuses.length; j++) {
+        superpos[j].total++;
+        if (statuses[j] === 'absent') {
+            superpos[j].absent++;
+        } else if (statuses[j] === 'present') {
+            superpos[j].present++;
+        } else if (statuses[j] === 'correct') {
+            superpos[j].correct++;
+        }
+    }
+  }
+  return superpos;
 }
