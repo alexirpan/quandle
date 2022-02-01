@@ -16,7 +16,7 @@ export const CompletedRow = ({ guess, realities }: Props) => {
   return (
     <div className="flex justify-center mb-1">
       {guess.split('').map((letter, i) => (
-        <Cell key={i} value={letter} status={"absent"} />
+        <Cell key={i} value={letter} status={superpos[i]} />
       ))}
     </div>
   )

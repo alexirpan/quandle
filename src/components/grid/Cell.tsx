@@ -1,9 +1,9 @@
-import { CharStatus } from '../../lib/statuses'
+import { CharStatus, Superposition } from '../../lib/statuses'
 import classnames from 'classnames'
 
 type Props = {
   value?: string
-  status?: CharStatus
+  status?: Superposition
 }
 
 export const Cell = ({ value, status }: Props) => {
@@ -12,9 +12,14 @@ export const Cell = ({ value, status }: Props) => {
     {
       'bg-white border-slate-200': !status,
       'border-black': value && !status,
-      'bg-slate-400 text-white border-slate-400': status === 'absent',
-      'bg-green-500 text-white border-green-500': status === 'correct',
-      'bg-yellow-500 text-white border-yellow-500': status === 'present',
+      'text-white': !!status,
+      'bg-slate-400': status && status.absent === status.total,
+      'bg-green-500': status && status.correct === status.total,
+      'bg-yellow-500': status && status.present === status.total,
+      'bg-gradient-to-r from-green-500 to-yellow-500': status && status.correct > 0 && status.present > 0 && status.absent === 0,
+      'bg-gradient-to-r from-green-500 to-slate-400': status && status.correct > 0 && status.present === 0 && status.absent > 0,
+      'bg-gradient-to-r from-yellow-500 to-slate-400': status && status.correct === 0 && status.present > 0 && status.absent > 0,
+      'bg-gradient-to-r from-green-500 via-yellow-500 to-slate-400': status && status.correct > 0 && status.present > 0 && status.absent > 0,
       'cell-animation': !!value,
     }
   )
