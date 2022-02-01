@@ -7,7 +7,7 @@ import { Keyboard } from './components/keyboard/Keyboard'
 import { AboutModal } from './components/modals/AboutModal'
 import { InfoModal } from './components/modals/InfoModal'
 import { WIN_MESSAGES } from './constants/strings'
-import { isWordInWordList, isWinningWord, solution } from './lib/words'
+import { isWordInWordList, isWinningWord } from './lib/words'
 import { addStatsForCompletedGame, loadStats } from './lib/stats'
 
 const ALERT_TIME_MS = 2000
@@ -92,7 +92,7 @@ function App() {
   return (
     <div className="py-8 max-w-7xl mx-auto sm:px-6 lg:px-8">
       <div className="flex w-80 mx-auto items-center mb-8">
-        <h1 className="text-xl grow font-bold">Not Wordle</h1>
+        <h1 className="text-xl grow font-bold">Quandle</h1>
         <InformationCircleIcon
           className="h-6 w-6 cursor-pointer"
           onClick={() => setIsInfoModalOpen(true)}
@@ -128,7 +128,7 @@ function App() {
 
       <Alert message="Not enough letters" isOpen={isNotEnoughLetters} />
       <Alert message="Word not found" isOpen={isWordNotFoundAlertOpen} />
-      <Alert message={`The word was ${solution}`} isOpen={isGameLost} />
+      <Alert message="Out of guesses" isOpen={isGameLost} />
       <Alert
         message={successAlert}
         isOpen={successAlert !== ''}
