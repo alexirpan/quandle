@@ -24,6 +24,7 @@ function App() {
   const [successAlert, setSuccessAlert] = useState('')
   const [guesses, setGuesses] = useState<string[]>([])
   const [realities, setRealities] = useState<string[]>(solutions)
+  const [eyes, setEyes] = useState<number>(5)
 
   const [stats, setStats] = useState(() => loadStats())
 

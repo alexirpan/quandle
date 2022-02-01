@@ -1,5 +1,7 @@
 import { CharStatus, Superposition } from '../../lib/statuses'
 import classnames from 'classnames'
+import { useState } from 'react'
+import { ObserveModal } from '../modals/ObserveModal';
 
 type Props = {
   value?: string
@@ -7,6 +9,7 @@ type Props = {
 }
 
 export const Cell = ({ value, status }: Props) => {
+  const [isObserveModalOpen, setIsObserveModalOpen] = useState(false);
   const classes = classnames(
     'w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded',
     {
@@ -24,5 +27,16 @@ export const Cell = ({ value, status }: Props) => {
     }
   )
 
-  return <div className={classes}>{value}</div>
+  return (
+    <>
+        <div className={classes} onClick={() => setIsObserveModalOpen(true)}>{value}</div>
+        {status && (
+            <ObserveModal
+                isOpen={isObserveModalOpen}
+                handleClose={() => setIsObserveModalOpen(false)}
+                status={status}
+            />
+        )}
+    </>
+  );
 }
