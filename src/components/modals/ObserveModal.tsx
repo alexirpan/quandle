@@ -20,9 +20,8 @@ export const ObserveModal = ({ isOpen, handleClose, status, guess, index }: Prop
     <BaseModal title="" isOpen={isOpen} handleClose={handleClose}>
       <div className="flex justify-center mb-1 mt-4">
         {splitGuess.map((letter, i) => {
-            <Cell value={letter} status={i === index ? status : undefined} />
-        }
-        )}
+            return <Cell value={letter} status={i === index ? status : undefined} />
+        })}
       </div>
       <p className="text-sm text-gray-500">
         <button

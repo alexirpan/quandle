@@ -18,10 +18,10 @@ export const Cell = ({ value, status, setModalOpen }: Props) => {
       'bg-slate-400': status && status.absent === status.total,
       'bg-green-500': status && status.correct === status.total,
       'bg-yellow-500': status && status.present === status.total,
-      'bg-gradient-to-r from-yellow-500 to-green-500': status && status.correct > 0 && status.present > 0 && status.absent === 0,
-      'bg-gradient-to-r from-green-500 to-slate-400': status && status.correct > 0 && status.present === 0 && status.absent > 0,
-      'bg-gradient-to-r from-yellow-500 to-slate-400': status && status.correct === 0 && status.present > 0 && status.absent > 0,
-      'bg-gradient-to-r from-green-500 via-yellow-500 to-slate-400': status && status.correct > 0 && status.present > 0 && status.absent > 0,
+      'present-correct': status && status.correct > 0 && status.present > 0 && status.absent === 0,
+      'absent-correct': status && status.correct > 0 && status.present === 0 && status.absent > 0,
+      'absent-present': status && status.correct === 0 && status.present > 0 && status.absent > 0,
+      'absent-present-correct': status && status.correct > 0 && status.present > 0 && status.absent > 0,
       'cell-animation': !!value,
     }
   )

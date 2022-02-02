@@ -20,3 +20,51 @@
     transform: scale(1);
   }
 }
+
+:root {
+  --correct: #22c55e;
+  --present: #eab308;
+  --absent: #94a3b8;
+}
+
+.present-correct {
+  background-image: linear-gradient(
+    to right,
+    var(--present),
+    var(--present) 50%,
+    var(--correct) 50%,
+    var(--correct)
+  );
+}
+
+.absent-present {
+  background-image: linear-gradient(
+    to right,
+    var(--absent),
+    var(--absent) 50%,
+    var(--present) 50%,
+    var(--present)
+  );
+}
+
+.absent-correct {
+  background-image: linear-gradient(
+    to right,
+    var(--absent),
+    var(--absent) 50%,
+    var(--correct) 50%,
+    var(--correct)
+  );
+}
+
+.absent-present-correct {
+  background-image: linear-gradient(
+    to right,
+    var(--absent),
+    var(--absent) 33%,
+    var(--present) 33%,
+    var(--present) 66%,
+    var(--correct) 66%,
+    var(--correct)
+  );
+}
