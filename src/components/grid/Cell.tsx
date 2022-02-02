@@ -23,6 +23,7 @@ export const Cell = ({ value, status, setModalOpen }: Props) => {
       'absent-present': status && status.correct === 0 && status.present > 0 && status.absent > 0,
       'absent-present-correct': status && status.correct > 0 && status.present > 0 && status.absent > 0,
       'cell-animation': !!value,
+      'cursor-pointer': !!status,
     }
   )
 
