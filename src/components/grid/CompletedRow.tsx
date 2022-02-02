@@ -6,16 +6,16 @@ import { ObserveModal } from '../modals/ObserveModal';
 type Props = {
   guess: string
   realities: string[]
+  setRealities: (arg0: string[]) => void
+  eyes: number
+  setEyes: (arg0: number) => void
 }
 
-export const CompletedRow = ({ guess, realities }: Props) => {
-  // TODO known char
+export const CompletedRow = ({ guess, realities, setRealities, eyes, setEyes }: Props) => {
   const superpos = getGuessStatusSuperpos(guess, realities);
-  console.log(guess);
-  console.log(superpos);
   let modalBools : boolean[] = [];
   let setModalBools : ((arg0: boolean) => void)[] = [];
-  // Avoid hardcoding length
+  // Avoid hardcoding length later?
   let [isModalOpen0, setIsModalOpen0] = useState<boolean>(false);
   modalBools[0] = isModalOpen0;
   setModalBools[0] = setIsModalOpen0;
@@ -51,6 +51,10 @@ export const CompletedRow = ({ guess, realities }: Props) => {
                 status={superpos[i]}
                 guess={guess}
                 index={i}
+                realities={realities}
+                setRealities={setRealities}
+                eyes={eyes}
+                setEyes={setEyes}
             />
         </>
       ))}

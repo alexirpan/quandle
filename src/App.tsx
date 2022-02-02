@@ -104,6 +104,9 @@ function App() {
         guesses={guesses}
         currentGuess={currentGuess}
         realities={realities}
+        setRealities={setRealities}
+        eyes={eyes}
+        setEyes={setEyes}
       />
       <Keyboard
         onChar={onChar}
