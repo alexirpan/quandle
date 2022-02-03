@@ -1,6 +1,4 @@
-import classnames from 'classnames'
 import { EyeIcon } from '@heroicons/react/outline'
-import { useState } from 'react'
 import { Cell } from '../grid/Cell'
 import { BaseModal } from './BaseModal'
 import { possibleRealities, CharStatus, Superposition } from '../../lib/statuses';

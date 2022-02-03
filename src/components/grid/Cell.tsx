@@ -1,6 +1,5 @@
-import { CharStatus, Superposition } from '../../lib/statuses'
+import { Superposition } from '../../lib/statuses'
 import classnames from 'classnames'
-import { useState } from 'react'
 
 type Props = {
   value?: string;

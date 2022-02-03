@@ -1,5 +1,4 @@
 import { InformationCircleIcon } from '@heroicons/react/outline'
-import { ChartBarIcon } from '@heroicons/react/outline'
 import { EyeIcon } from '@heroicons/react/outline'
 import { useState, useEffect } from 'react'
 import { Alert } from './components/alerts/Alert'
@@ -19,7 +18,6 @@ function App() {
   const [isInfoModalOpen, setIsInfoModalOpen] = useState(false)
   const [isAboutModalOpen, setIsAboutModalOpen] = useState(false)
   const [isNotEnoughLetters, setIsNotEnoughLetters] = useState(false)
-  const [isStatsModalOpen, setIsStatsModalOpen] = useState(false)
   const [isWordNotFoundAlertOpen, setIsWordNotFoundAlertOpen] = useState(false)
   const [isGameLost, setIsGameLost] = useState(false)
   const [successAlert, setSuccessAlert] = useState('')
@@ -36,13 +34,10 @@ function App() {
       )
       setTimeout(() => {
         setSuccessAlert('')
-        setIsStatsModalOpen(true)
       }, ALERT_TIME_MS)
     }
     if (isGameLost) {
-      setTimeout(() => {
-        setIsStatsModalOpen(true)
-      }, ALERT_TIME_MS)
+      setTimeout(() => {}, ALERT_TIME_MS)
     }
   }, [isGameWon, isGameLost])
 

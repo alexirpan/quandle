@@ -1,4 +1,3 @@
-import { solutions } from './words'
 
 export type CharStatus = 'absent' | 'present' | 'correct';
 
@@ -114,7 +113,6 @@ export const getGuessStatuses = (guess: string, solution: string): CharStatus[] 
 
 export const getGuessStatusSuperpos = (guess: string, realities: string[]): Superposition[] => {
   // only return clear status if it is true in all possibilities.
-  const splitGuess = guess.split('')
 
   const superpos: Superposition[] = [];
   for (let i = 0; i < guess.length; i++) {
