@@ -1,6 +1,6 @@
 import { solutions } from './words'
 
-export type CharStatus = 'absent' | 'present' | 'correct' | 'unknown';
+export type CharStatus = 'absent' | 'present' | 'correct';
 
 // The status of a given square depends on its position in the word.
 export type Superposition = {

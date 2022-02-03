@@ -19,6 +19,10 @@ type Props = {
   setEyes: (arg0: number) => void;
 }
 
+const percentage = (superpos: Superposition, status: CharStatus) => {
+    return Math.round((100. * superpos[status]) / superpos.total);
+}
+
 
 export const ObserveModal = ({ isOpen, handleClose, status, guess, index, realities, setRealities, eyes, setEyes }: Props) => {
   const limitRealities = (status: CharStatus) => {
@@ -51,10 +55,10 @@ export const ObserveModal = ({ isOpen, handleClose, status, guess, index, realit
                       className="text-lg font-bold rounded text-white bg-slate-400"
                       onClick={eyes > 0 ? makeLimitOnClick('absent') : undefined}
                     >
-                    {status.absent}
+                    {`${percentage(status, 'absent')}%`}
                     </button>
                 </p>
-                {eyes > 0 && <EyeIcon className="h-8 w-8" />}
+                {eyes > 0 && <EyeIcon className="h-8 w-8" onClick={makeLimitOnClick('absent')} />}
             </td>
         )}
         {status.present > 0 && (
@@ -65,10 +69,10 @@ export const ObserveModal = ({ isOpen, handleClose, status, guess, index, realit
                       className="text-lg font-bold rounded text-white bg-yellow-500"
                       onClick={eyes > 0 ? makeLimitOnClick('present') : undefined}
                     >
-                    {status.present}
+                    {`${percentage(status, 'present')}%`}
                     </button>
                 </p>
-                {eyes > 0 && <EyeIcon className="h-8 w-8" />}
+                {eyes > 0 && <EyeIcon className="h-8 w-8" onClick={makeLimitOnClick('present')} />}
             </td>
         )}
         {status.correct > 0 && (
@@ -79,10 +83,10 @@ export const ObserveModal = ({ isOpen, handleClose, status, guess, index, realit
                       className="text-lg font-bold rounded text-white bg-green-500"
                       onClick={eyes > 0 ? makeLimitOnClick('correct') : undefined}
                     >
-                    {status.correct}
+                    {`${percentage(status, 'correct')}%`}
                     </button>
                 </p>
-                {eyes > 0 && <EyeIcon className="h-8 w-8" />}
+                {eyes > 0 && <EyeIcon className="h-8 w-8" onClick={makeLimitOnClick('correct')} />}
             </td>
         )}
       </tr>
