@@ -1,4 +1,5 @@
 import classnames from 'classnames'
+import { EyeIcon } from '@heroicons/react/outline'
 import { useState } from 'react'
 import { Cell } from '../grid/Cell'
 import { BaseModal } from './BaseModal'
@@ -26,6 +27,7 @@ export const ObserveModal = ({ isOpen, handleClose, status, guess, index, realit
   };
   const makeLimitOnClick = (status: CharStatus) => {
     return () => {
+      setEyes(eyes - 1);
       limitRealities(status);
     };
   };
@@ -38,35 +40,54 @@ export const ObserveModal = ({ isOpen, handleClose, status, guess, index, realit
             return <Cell value={letter} status={i === index ? status : undefined} />
         })}
       </div>
-      <p className="text-sm text-gray-500">
+      <div className="flex justify-center">
+      <table>
+      <tr>
         {status.absent > 0 && (
-            <button
-              style={{ width: '50px', height: '50px' }}
-              className="text-lg font-bold rounded text-white bg-slate-400"
-              onClick={makeLimitOnClick('absent')}
-            >
-            {status.absent}
-            </button>
+            <td>
+                <p className="text-sm text-gray-500">
+                    <button
+                      style={{ width: '50px', height: '50px' }}
+                      className="text-lg font-bold rounded text-white bg-slate-400"
+                      onClick={eyes > 0 ? makeLimitOnClick('absent') : undefined}
+                    >
+                    {status.absent}
+                    </button>
+                </p>
+                {eyes > 0 && <EyeIcon className="h-8 w-8" />}
+            </td>
         )}
         {status.present > 0 && (
-            <button
-              style={{ width: '50px', height: '50px' }}
-              className="text-lg font-bold rounded text-white bg-yellow-500"
-              onClick={makeLimitOnClick('present')}
-            >
-            {status.present}
-            </button>
+            <td>
+                <p className="text-sm text-gray-500">
+                    <button
+                      style={{ width: '50px', height: '50px' }}
+                      className="text-lg font-bold rounded text-white bg-yellow-500"
+                      onClick={eyes > 0 ? makeLimitOnClick('present') : undefined}
+                    >
+                    {status.present}
+                    </button>
+                </p>
+                {eyes > 0 && <EyeIcon className="h-8 w-8" />}
+            </td>
         )}
         {status.correct > 0 && (
-            <button
-              style={{ width: '50px', height: '50px' }}
-              className="text-lg font-bold rounded text-white bg-green-500"
-              onClick={makeLimitOnClick('correct')}
-            >
-            {status.correct}
-            </button>
+            <td>
+                <p className="text-sm text-gray-500">
+                    <button
+                      style={{ width: '50px', height: '50px' }}
+                      className="text-lg font-bold rounded text-white bg-green-500"
+                      onClick={eyes > 0 ? makeLimitOnClick('correct') : undefined}
+                    >
+                    {status.correct}
+                    </button>
+                </p>
+                {eyes > 0 && <EyeIcon className="h-8 w-8" />}
+            </td>
         )}
-      </p>
+      </tr>
+      </table>
+      </div>
     </BaseModal>
   )
 }
