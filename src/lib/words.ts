@@ -8,9 +8,8 @@ export const isWordInWordList = (word: string) => {
   )
 }
 
-export const isWinningWord = (word: string) => {
-  // TODO fix this
-  return false;
+export const isWinningWord = (word: string, realities: string[]) => {
+  return realities.length === 1 && realities[0].toLowerCase() === word.toLowerCase();
 }
 
 export const getWordOfDay = () => {
