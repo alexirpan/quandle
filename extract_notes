@@ -1,0 +1,35 @@
+A wordle clue has 3 parts of info
+
+1. Position in word
+2. Letter
+3. Color
+
+Uhhh but then letter repeats make it hard...
+Well maybe not.
+
+Assume extract is all greens.
+
+Then a given (position, letter) combo can appear at most once.
+i.e. in column x, letter k has count 1 and all other letters have count 2
+but if you do this, then you can only extract at most 5 letters
+Okay that's not good.
+
+How about (present, letter) clues?
+to be unique, that letter cannot appear in any other word in the word list
+that seems worse.
+
+How about absent clue?
+To be unique, every other word has to include that letter.
+Okay, picking 1 clue seems bad then.
+
+How about assuming 2 greens for selection?
+There are 5 choose 2 = 10 possible pairs of indices to pick
+
+So picking 1 pair in a word means distributing 9 pairs among the remaining words...
+
+10N pairs total and 90% are shared? Seems pretty constrained.
+
+corollary - if it's hard to make only one square give a unique clue, then most words should have
+a 1-eye or 2-eye solution
+
+Probably 1-eye is enough and 2-eye makes it less grindy?
