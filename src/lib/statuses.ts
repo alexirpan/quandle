@@ -139,3 +139,12 @@ export const observeSquare = (guess: string, realities: string[],
                               observeIndex: number, observeStatus: CharStatus) => {
     setRealities(possibleRealities(realities, guess, observeIndex, observeStatus));
 }
+
+export const makeSuperpos = (status: CharStatus): Superposition => {
+    return {
+        absent: status === 'absent' ? 1 : 0,
+        present: status === 'present' ? 1 : 0,
+        correct: status === 'correct' ? 1 : 0,
+        total: 1,
+    };
+}

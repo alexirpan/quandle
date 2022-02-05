@@ -10,6 +10,7 @@ import { InfoModal } from './components/modals/InfoModal'
 import { WIN_MESSAGES } from './constants/strings'
 import { isWordInWordList, isWinningWord, solutions } from './lib/words'
 import { addStatsForCompletedGame, loadStats, displayWords } from './lib/stats'
+import { makeSuperpos } from './lib/statuses'
 
 const ALERT_TIME_MS = 2000
 
@@ -129,12 +130,24 @@ function App() {
       {stats.foundWords.length > 0 && (
         <>
           <h1 className="text-xl grow font-bold flex justify-center">Words</h1>
-          {displayWords(stats).map((word, i) => {
+          {displayWords(stats).map((extract, i) => {
             return (
               <div className="flex justify-center">
-                {word.split('').map((letter, j) => {
-                  return <Cell value={letter} />
-                })}
+                {extract.word
+                  .toUpperCase()
+                  .split('')
+                  .map((letter, j) => {
+                    return (
+                      <Cell
+                        value={letter}
+                        status={
+                          j === extract.index
+                            ? makeSuperpos('correct')
+                            : undefined
+                        }
+                      />
+                    )
+                  })}
               </div>
             )
           })}

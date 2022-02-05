@@ -1,4 +1,4 @@
-export const WORDS = [
+words = [
   'cigar',
   'rebut',
   'sissy',
@@ -2316,6 +2316,20 @@ export const WORDS = [
   'shave',
 ]
 
-export const ANSWER_WORDS = ['jelly','teach','leach','excel','hobby','nutty','torus','fecal','jetty','cleat','moult','glint','mealy','cable','polyp','state','query','fancy','heist','drove','agent','miner','holly','order','tithe','storm','mafia','prick','women','renal','imbue','poser','relax','gnome','solve','manly','liege','testy','abode','sober','rinse','usher','patch','grope','grant','tibia','after','crass','heron','agent'];
+target = 'jealouslycollapsefivemoreripenmoresmisesrepotberet'
+assert len(target) == 50
 
-export const EXTRACT_INDICES = [0,1,2,4,1,1,4,4,4,0,1,1,3,1,0,0,2,0,2,3,2,0,1,1,4,3,3,0,3,2,1,1,0,4,0,0,1,2,4,0,0,3,0,2,4,2,3,1,1,4];
+blacklist = ['ripen', 'mores', 'mises', 'repot', 'beret']
+
+out = []
+import random
+
+while len(out) < 50:
+    c = target[len(out)]
+    w = random.choice(words)
+    while c not in w or w in blacklist:
+        w = random.choice(words)
+    out.append((w, w.index(c)))
+
+print('[' + ','.join("'" + o[0] + "'" for o in out) + ']')
+print('[' + ','.join(str(o[1]) for o in out) + ']')
