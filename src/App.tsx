@@ -112,6 +112,7 @@ function App() {
         onDelete={onDelete}
         onEnter={onEnter}
         guesses={guesses}
+        realities={realities}
       />
       <InfoModal
         isOpen={isInfoModalOpen}

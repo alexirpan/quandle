@@ -39,11 +39,26 @@ export type CharValue =
   | 'M'
 
 export const getStatuses = (
-  guesses: string[]
+  guesses: string[],
+  realities: string[],
 ): { [key: string]: CharStatus } => {
   const charObj: { [key: string]: CharStatus } = {}
+  // original code checks letter from each guess in order from 1st to last.
+  // repeat that ordering but only do an assignment if 100% probabilitiy
+  for (let i = 0; i < guesses.length; i++) {
+    const superPos = getGuessStatusSuperpos(guesses[i], realities);
+    for (let j = 0; j < superPos.length; j++) {
+        // iter order is important here
+        if (superPos[j].absent === superPos[j].total) {
+            charObj[guesses[i][j]] = 'absent';
+        } else if (superPos[j].correct === superPos[j].total) {
+            charObj[guesses[i][j]] = 'correct';
+        } else if (superPos[j].present === superPos[j].total) {
+            charObj[guesses[i][j]] = 'present';
+        }
+    }
+  }
 
-  // TODO update charObj based on guesses.
   return charObj;
 };
 
