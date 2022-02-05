@@ -2,13 +2,14 @@ import { InformationCircleIcon } from '@heroicons/react/outline'
 import { EyeIcon } from '@heroicons/react/outline'
 import { useState, useEffect } from 'react'
 import { Alert } from './components/alerts/Alert'
+import { Cell } from './components/grid/Cell'
 import { Grid } from './components/grid/Grid'
 import { Keyboard } from './components/keyboard/Keyboard'
 import { AboutModal } from './components/modals/AboutModal'
 import { InfoModal } from './components/modals/InfoModal'
 import { WIN_MESSAGES } from './constants/strings'
 import { isWordInWordList, isWinningWord, solutions } from './lib/words'
-import { addStatsForCompletedGame, loadStats } from './lib/stats'
+import { addStatsForCompletedGame, loadStats, displayWords } from './lib/stats'
 
 const ALERT_TIME_MS = 2000
 
@@ -125,6 +126,20 @@ function App() {
       <p style={{ textAlign: 'center' }}>
         Don't look at the source code, it has spoilers.
       </p>
+      {stats.foundWords.length > 0 && (
+        <>
+          <h1 className="text-xl grow font-bold flex justify-center">Words</h1>
+          {displayWords(stats).map((word, i) => {
+            return (
+              <div className="flex justify-center">
+                {word.split('').map((letter, j) => {
+                  return <Cell value={letter} />
+                })}
+              </div>
+            )
+          })}
+        </>
+      )}
 
       <Alert message="Not enough letters" isOpen={isNotEnoughLetters} />
       <Alert message="Word not found" isOpen={isWordNotFoundAlertOpen} />

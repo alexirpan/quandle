@@ -3,6 +3,7 @@ import {
   loadStatsFromLocalStorage,
   saveStatsToLocalStorage,
 } from './localStorage'
+import { getWordOfDay } from './words';
 
 // Repurposing stats array to store list of words found so far.
 // In stats array elements 0-5 are successes in 1-6 trys
@@ -29,4 +30,18 @@ const defaultStats: GameStats = {
 
 export const loadStats = () => {
   return loadStatsFromLocalStorage() || defaultStats
+}
+
+export const displayWords = (gameStats: GameStats): string[] => {
+    // O(N^2) but again whatever
+    let outWords: string[] = [];
+    const solutions = getWordOfDay().solutions;
+    console.log(solutions);
+    for (let i = 0; i < solutions.length; i++) {
+        if (gameStats.foundWords.includes(solutions[i].toLowerCase())) {
+            outWords.push(solutions[i]);
+        }
+    }
+    console.log(outWords);
+    return outWords;
 }
