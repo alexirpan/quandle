@@ -2,6 +2,8 @@ import { EyeIcon } from '@heroicons/react/outline'
 import { Cell } from '../grid/Cell'
 import { BaseModal } from './BaseModal'
 import { possibleRealities, CharStatus, Superposition } from '../../lib/statuses';
+import { addStatsForCompletedGame, loadStats } from '../../lib/stats'
+import { GameStats } from '../../lib/localStorage';
 
 // Modal for observing different outcomes
 
@@ -15,6 +17,9 @@ type Props = {
   setRealities: (arg0: string[]) => void;
   eyes: number;
   setEyes: (arg0: number) => void;
+  guesses: string[];
+  setStats: (arg0: GameStats) => void;
+  setIsGameWon: (arg0: boolean) => void;
 }
 
 const percentage = (superpos: Superposition, status: CharStatus) => {
@@ -22,15 +27,24 @@ const percentage = (superpos: Superposition, status: CharStatus) => {
 }
 
 
-export const ObserveModal = ({ isOpen, handleClose, status, guess, index, realities, setRealities, eyes, setEyes }: Props) => {
+export const ObserveModal = ({ isOpen, handleClose, status, guess, index, realities, setRealities, eyes, setEyes, guesses, setStats, setIsGameWon }: Props) => {
   const limitRealities = (status: CharStatus) => {
     const newRealities = possibleRealities(realities, guess, index, status);
     setRealities(newRealities);
+    return newRealities;
   };
+  const stats = loadStats();
   const makeLimitOnClick = (status: CharStatus) => {
     return () => {
       setEyes(eyes - 1);
-      limitRealities(status);
+      const newReal = limitRealities(status);
+      // Now check if the game is won
+      // At this point, the list of guesses should contain the answer if the
+      // game is won (may not necessarily be this guess)
+      if (newReal.length === 1 && guesses.includes(newReal[0])) {
+        setStats(addStatsForCompletedGame(stats, newReal[0]));
+        return setIsGameWon(true);
+      }
     };
   };
 

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { getGuessStatusSuperpos } from '../../lib/statuses';
 import { Cell } from './Cell';
 import { ObserveModal } from '../modals/ObserveModal';
+import { GameStats } from '../../lib/localStorage';
 
 type Props = {
   guess: string
@@ -9,9 +10,12 @@ type Props = {
   setRealities: (arg0: string[]) => void
   eyes: number
   setEyes: (arg0: number) => void
+  guesses: string[]
+  setStats: (arg0: GameStats) => void
+  setIsGameWon: (arg0: boolean) => void
 }
 
-export const CompletedRow = ({ guess, realities, setRealities, eyes, setEyes }: Props) => {
+export const CompletedRow = ({ guess, realities, setRealities, eyes, setEyes, guesses, setStats, setIsGameWon }: Props) => {
   const superpos = getGuessStatusSuperpos(guess, realities);
   let modalBools : boolean[] = [];
   let setModalBools : ((arg0: boolean) => void)[] = [];
@@ -55,6 +59,9 @@ export const CompletedRow = ({ guess, realities, setRealities, eyes, setEyes }: 
                 setRealities={setRealities}
                 eyes={eyes}
                 setEyes={setEyes}
+                guesses={guesses}
+                setStats={setStats}
+                setIsGameWon={setIsGameWon}
             />
         </>
       ))}

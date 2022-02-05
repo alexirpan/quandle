@@ -104,6 +104,8 @@ function App() {
         setRealities={setRealities}
         eyes={eyes}
         setEyes={setEyes}
+        setStats={setStats}
+        setIsGameWon={setIsGameWon}
       />
       <Keyboard
         onChar={onChar}
