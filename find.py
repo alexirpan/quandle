@@ -2316,20 +2316,32 @@ words = [
   'shave',
 ]
 
-target = 'jealouslycollapsefivemoreripenmoresmisesrepotberet'
+target = 'collapsesuperpositionofwordswherefourthlettergreen'
 assert len(target) == 50
 
-blacklist = ['ripen', 'mores', 'mises', 'repot', 'beret']
+blacklist = ['savor', 'baker', 'seven', 'yokes', 'yeses']
 
 out = []
 import random
 
+use_four = [1, 11, 30, 40, 48]
+
 while len(out) < 50:
+    if len(out) in use_four:
+        w = blacklist[use_four.index(len(out))]
+        out.append((w, 3))
+        continue
     c = target[len(out)]
     w = random.choice(words)
-    while c not in w or w in blacklist:
+    while c not in w or w in blacklist or w[3] == c:
         w = random.choice(words)
     out.append((w, w.index(c)))
+    blacklist.append(w)
+
+assert [p[1] for p in out].count(3) == 5
+extract = [p[0][p[1]] for p in out]
+print(''.join(extract))
+print(target)
 
 print('[' + ','.join("'" + o[0] + "'" for o in out) + ']')
 print('[' + ','.join(str(o[1]) for o in out) + ']')

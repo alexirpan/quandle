@@ -127,6 +127,9 @@ function App() {
         <EyeIcon className="h-8 w-8" />
         &nbsp;x {eyes}
       </div>
+      {guesses.length > 0 && (
+        <p style={{ textAlign: 'center' }}>Try clicking previous guesses!</p>
+      )}
       <p style={{ textAlign: 'center' }}>
         Don't look at the source code, it has spoilers.
       </p>
