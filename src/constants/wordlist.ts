@@ -2316,6 +2316,6 @@ export const WORDS = [
   'shave',
 ]
 
-export const ANSWER_WORDS = ['jelly','teach','leach','excel','hobby','nutty','torus','fecal','jetty','cleat','moult','glint','mealy','cable','polyp','state','query','fancy','heist','drove','agent','miner','holly','order','tithe','storm','mafia','prick','women','renal','imbue','poser','relax','gnome','solve','manly','liege','testy','abode','sober','rinse','usher','patch','grope','grant','tibia','after','crass','heron','agent'];
+export const ANSWER_WORDS = ['toxic','savor','lower','tonal','arrow','plank','smear','spike','mucus','puree','peril','baker','truly','plump','stole','shaky','icily','quest','visor','shout','inter','dross','fluke','threw','ionic','erupt','rabid','upset','straw','sharp','seven','groin','penny','fizzy','modal','shunt','druid','these','wheel','blurt','yokes','theft','steak','dwell','brute','eking','crime','trace','yeses','mango'];
 
-export const EXTRACT_INDICES = [0,1,2,4,1,1,4,4,4,0,1,1,3,1,0,0,2,0,2,3,2,0,1,1,4,3,3,0,3,2,1,1,0,4,0,0,1,2,4,0,0,3,0,2,4,2,3,1,1,4];
+export const EXTRACT_INDICES = [4,3,0,4,0,0,0,4,4,1,0,3,1,0,2,0,0,4,1,2,1,2,0,4,1,1,4,2,4,1,3,1,1,0,1,2,1,0,1,1,3,0,1,2,1,4,1,4,3,2]

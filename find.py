@@ -2339,6 +2339,7 @@ while len(out) < 50:
     blacklist.append(w)
 
 assert [p[1] for p in out].count(3) == 5
+assert len(set(p[0] for p in out)) == 50
 extract = [p[0][p[1]] for p in out]
 print(''.join(extract))
 print(target)
