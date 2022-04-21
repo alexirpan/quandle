@@ -1,3 +1,4 @@
+import itertools
 words = [
   'cigar',
   'rebut',
@@ -2316,13 +2317,23 @@ words = [
   'shave',
 ]
 
+target = 'collapsesuperpositionofwordswheresecondlettergreen'
 target = 'collapsesuperpositionofwordswherefourthlettergreen'
 assert len(target) == 50
 
-blacklist = ['savor', 'baker', 'seven', 'yokes', 'yeses']
-
 out = []
 import random
+
+# Sanity check this is possible.
+i1 = 2-1
+i2 = 4-1
+for a,b in zip('second', 'fourth'):
+    opts = []
+    for pair in itertools.combinations((0,2,4), 2):
+        opts.extend(w for w in words if w[pair[0]] == a and w[pair[1]] == b)
+    print(a, b, opts)
+
+print(1/0)
 
 use_four = [1, 11, 30, 40, 48]
 
