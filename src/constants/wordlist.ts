@@ -2316,6 +2316,6 @@ export const WORDS = [
   'shave',
 ]
 
-export const ANSWER_WORDS = ['toxic','savor','lower','tonal','arrow','plank','smear','spike','mucus','puree','peril','baker','truly','plump','stole','shaky','icily','quest','visor','shout','inter','dross','fluke','threw','ionic','erupt','rabid','upset','straw','sharp','seven','groin','penny','fizzy','modal','shunt','druid','these','wheel','blurt','yokes','theft','steak','dwell','brute','eking','crime','trace','yeses','mango'];
+export const ANSWER_WORDS = ['crank','choke','polka','fleet','amaze','tempo','hasty','steam','snack','squad','pleat','elope','ripen','helps','chord','swift','fiend','joint','mixed','offer','slain','showy','fable','wagon','boxer','tardy','older','stout','elbow','hobby','hares','ramen','valve','safer','epoch','cruel','scour','night','width','great','taint','bluer','above','timid','spicy','thing','honor','guide','wiled','finer'];
 
-export const EXTRACT_INDICES = [4,3,0,4,0,0,0,4,4,1,0,3,1,0,2,0,0,4,1,2,1,2,0,4,1,1,4,2,4,1,3,1,1,0,1,2,1,0,1,1,3,0,1,2,1,4,1,4,3,2]
+export const EXTRACT_INDICES = [[0],[2],[2],[1],[0],[3],[2],[2],[0],[2],[0],[0],[0],[3],[2],[0],[1],[4],[1],[0],[4],[2],[0],[0],[1],[2],[2],[0],[4],[0],[3],[0],[4],[0, 2],[0, 2],[0, 2],[2, 4],[0, 4],[2, 4],[4],[2],[1],[4],[3],[0],[4],[4],[4],[3],[2]];

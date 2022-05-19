@@ -2318,7 +2318,7 @@ words = [
 ]
 
 target = 'collapsesuperpositionofwordswheresecondtileisgreen'
-target = 'collapsesuperpositionofwordswherefourthtileisgreen'
+#target = 'collapsesuperpositionofwordswherefourthtileisgreen'
 assert len(target) == 50
 
 
@@ -2327,39 +2327,63 @@ assert len(target) == 50
 # 2nd: l o l i i
 blacklist = ['fleet', 'boxer', 'bluer', 'fiend', 'mixed',
 # 4th: p e p i e
-             'tempo', 'hares', 'helps', 'timid', 'wiled']
+             'tempo', 'hares', 'helps', 'timid', 'wiled',
+             'mount', 'wario']
 
 out = []
 import random
 
 # Sanity check this is possible.
+# Okay it is
 i1 = 2-1
 i2 = 4-1
+opts_list = []
 for a,b in zip('second', 'fourth'):
     opts = []
     for pair in itertools.combinations((0,2,4), 2):
-        opts.extend(w for w in words if w[pair[0]] == a and w[pair[1]] == b)
-    print(a, b, opts)
+        opts.extend(w for w in words if w[pair[0]] == a and w[pair[1]] == b and a not in w[1]+w[3] and b not in w[1]+w[3])
+    opts_list.append(opts)
 
-print(1/0)
+use_two = [3, 24, 41, 16, 18]
+use_four = [5, 30, 13, 43, 48]
+avoid_24 = [33, 34, 35, 36, 37, 38]
 
-use_four = [1, 11, 30, 40, 48]
+for ind, twos in zip(use_two, blacklist[:5]):
+    assert target[ind] == twos[1]
+
+for ind, fours in zip(use_four, blacklist[5:]):
+    assert target[ind] == fours[3]
+
+assert ''.join(target[i] for i in avoid_24) == 'second'
 
 while len(out) < 50:
+    if len(out) in use_two:
+        w = blacklist[use_two.index(len(out))]
+        out.append((w, [1]))
+        continue
     if len(out) in use_four:
-        w = blacklist[use_four.index(len(out))]
-        out.append((w, 3))
+        w = blacklist[5+use_four.index(len(out))]
+        out.append((w, [3]))
+        continue
+    if len(out) in avoid_24:
+        opts = opts_list[len(out) - 33]
+        w = random.choice(opts)
+        while w in blacklist:
+            w = random.choice(opts)
+        c1 = 'second'[len(out)-33]
+        c2 = 'fourth'[len(out)-33]
+        out.append((w, [w.index(c1), w.index(c2)]))
+        blacklist.append(w)
         continue
     c = target[len(out)]
     w = random.choice(words)
-    while c not in w or w in blacklist or w[3] == c:
+    while c not in w or w in blacklist or w[3] == c or w[1] == c:
         w = random.choice(words)
-    out.append((w, w.index(c)))
+    out.append((w, [w.index(c)]))
     blacklist.append(w)
 
-assert [p[1] for p in out].count(3) == 5
 assert len(set(p[0] for p in out)) == 50
-extract = [p[0][p[1]] for p in out]
+extract = [p[0][p[1][0]] for p in out]
 print(''.join(extract))
 print(target)
 
