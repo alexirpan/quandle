@@ -147,7 +147,7 @@ function App() {
                       <Cell
                         value={letter}
                         status={
-                          j === extract.index
+                          extract.index.includes(j)
                             ? makeSuperpos('correct')
                             : undefined
                         }

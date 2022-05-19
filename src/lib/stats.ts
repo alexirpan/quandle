@@ -34,7 +34,7 @@ export const loadStats = () => {
 
 export type Extract = {
     word: string
-    index: number
+    index: number[]
 }
 
 export const displayWords = (gameStats: GameStats): Extract[] => {

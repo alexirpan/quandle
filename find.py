@@ -2317,9 +2317,17 @@ words = [
   'shave',
 ]
 
-target = 'collapsesuperpositionofwordswheresecondlettergreen'
-target = 'collapsesuperpositionofwordswherefourthlettergreen'
+target = 'collapsesuperpositionofwordswheresecondtileisgreen'
+target = 'collapsesuperpositionofwordswherefourthtileisgreen'
 assert len(target) == 50
+
+
+# Issue: only 2 I need 3 in total
+# fixed with "letter" -> "tile is"
+# 2nd: l o l i i
+blacklist = ['fleet', 'boxer', 'bluer', 'fiend', 'mixed',
+# 4th: p e p i e
+             'tempo', 'hares', 'helps', 'timid', 'wiled']
 
 out = []
 import random
