@@ -1,6 +1,6 @@
 # Quandle
 
-This is a prototype of the puzzle [Quandle](https://puzzles.mit.edu/2023/puzzlefactory.place/office/quandle) from MIT Mystery Hunt 2023. It was forked from an open-source reproduction of Wordle, then modified to include the desired changes for the puzzle.
+This is a prototype of the puzzle [Quandle](https://puzzles.mit.edu/2023/puzzlefactory.place/office/quandle) from MIT Mystery Hunt 2023. It was forked from an open-source reproduction of Wordle, then modified to include the desired changes for the puzzle. Below is the original README from the fork.
 
 
 # Wordle Clone
